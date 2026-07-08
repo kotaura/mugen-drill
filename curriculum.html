@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学習カリキュラム早見表（小1・小4）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800;900&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{ --accent:#6366f1; --accent-grad:linear-gradient(135deg,#6366f1,#3b82f6); --accent-shadow:rgba(99,102,241,.35); }
+*,*::before,*::after{box-sizing:border-box;}
+body{font-family:'M PLUS Rounded 1c','Zen Maru Gothic',sans-serif;min-height:100vh;
+  background:linear-gradient(135deg,#f8faff 0%,#eef2ff 50%,#f0f9ff 100%);color:#1e293b;
+  display:flex;flex-direction:column;align-items:center;margin:0;padding-bottom:48px;}
+.app-header{width:100%;max-width:960px;padding:24px 24px 0;display:flex;align-items:center;gap:12px;}
+.app-logo{width:44px;height:44px;border-radius:12px;background:var(--accent-grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.3rem;font-weight:900;box-shadow:0 4px 12px var(--accent-shadow);}
+.app-title{font-size:1.15rem;font-weight:800;}
+.app-sub{font-size:.75rem;color:#94a3b8;font-weight:500;}
+.app-home{margin-left:auto;text-decoration:none;font-size:.78rem;font-weight:700;color:var(--accent);background:#fff;padding:8px 14px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.controls{width:100%;max-width:960px;padding:14px 24px;display:flex;gap:8px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:.82rem;font-family:'Zen Maru Gothic',sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.1);color:#fff;background:var(--accent-grad);}
+.btn:hover{transform:translateY(-1px);}
+.sheet-wrap{width:100%;display:flex;justify-content:center;padding:0 12px;}
+.sheet{background:#fff;width:210mm;min-height:297mm;padding:14mm 15mm 12mm;border-radius:16px;
+  box-shadow:0 0 0 1px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08),0 32px 64px rgba(0,0,0,.06);
+  display:none;flex-direction:column;margin-bottom:24px;}
+.sheet.active{display:flex;}
+.sh-head{display:flex;align-items:baseline;gap:10px;border-bottom:3px solid var(--accent);padding-bottom:8px;margin-bottom:4px;}
+.sh-title{font-size:1.35rem;font-weight:900;color:var(--accent);}
+.sh-note{font-size:.72rem;color:#94a3b8;margin-left:auto;}
+.lead{font-size:.8rem;color:#475569;margin:10px 0 16px;line-height:1.6;}
+.subj{margin-bottom:18px;}
+.subj-h{font-weight:900;font-size:.95rem;padding:5px 12px;border-radius:8px;color:#fff;display:inline-block;margin-bottom:8px;}
+table{width:100%;border-collapse:collapse;font-size:.76rem;}
+th,td{border:1px solid #e2e8f0;padding:6px 9px;text-align:left;vertical-align:top;line-height:1.5;}
+th{background:#f1f5f9;font-weight:800;color:#334155;white-space:nowrap;width:70px;}
+td b{color:#1e293b;}
+.tag{display:inline-block;font-size:.66rem;font-weight:700;color:#64748b;background:#f1f5f9;border-radius:6px;padding:1px 7px;margin-right:4px;}
+@page{size:A4;margin:12mm;}
+@media print{
+  body{background:#fff!important;padding:0;display:block;}
+  .app-header,.controls{display:none!important;}
+  .sheet-wrap{padding:0;display:block;}
+  .sheet{display:flex!important;box-shadow:none;border-radius:0;width:auto;min-height:auto;padding:0;margin:0;page-break-after:always;}
+  .sheet:last-child{page-break-after:auto;}
+}
+</style>
+</head>
+<body>
+<div class="app-header">
+  <div class="app-logo">📅</div>
+  <div><div class="app-title">学習カリキュラム早見表</div><div class="app-sub">小学1年生・4年生 — いつ何を学ぶか</div></div>
+  <a class="app-home" href="index.html">🏠 一覧へ</a>
+</div>
+<div class="controls">
+  <button class="btn" onclick="show(0)">小学1年生</button>
+  <button class="btn" onclick="show(1)">小学4年生</button>
+  <button class="btn" style="background:#334155" onclick="window.print()">🖨 印刷</button>
+</div>
+
+<div class="sheet-wrap">
+  <!-- 小1 -->
+  <section class="sheet active" id="s0">
+    <div class="sh-head"><span class="sh-title">小学1年生</span><span class="sh-note">標準的な進度（4月〜翌3月）／教科書により前後します</span></div>
+    <p class="lead">1年生は<b>国語・算数・生活</b>が中心です（理科・社会は3年生から始まります）。まずは「かず」と「ひらがな」を、ゆっくり丁寧に。学期の目安 ― <b>1学期＝4〜7月／2学期＝9〜12月／3学期＝1〜3月</b>。</p>
+
+    <div class="subj">
+      <span class="subj-h" style="background:linear-gradient(135deg,#e11d48,#fb7185)">こくご</span>
+      <table><tr><th>時期</th><th>学ぶこと</th></tr>
+      <tr><th>4〜6月</th><td><b>ひらがな</b>の読み書き（清音）。ことばあつめ、うたやおはなしを聞く。</td></tr>
+      <tr><th>6〜9月</th><td>ひらがなの<b>にごる音・小さい字（ゃゅょ・っ）・のばす音</b>。かんたんな文づくり。</td></tr>
+      <tr><th>9〜12月</th><td><b>カタカナ</b>の読み書き。<b>かん字（80字）</b>の学習開始。音読・作文。</td></tr>
+      <tr><th>1〜3月</th><td>かん字のまとめ（80字）。ものがたりの読み取り、じぶんの考えを書く。</td></tr>
+      </table>
+    </div>
+
+    <div class="subj">
+      <span class="subj-h" style="background:linear-gradient(135deg,#6366f1,#3b82f6)">さんすう</span>
+      <table><tr><th>時期</th><th>学ぶこと</th></tr>
+      <tr><th>4〜5月</th><td><b>10までのかず</b>／なかまづくりと かず／<b>いくつといくつ</b></td></tr>
+      <tr><th>6〜7月</th><td><b>たしざん・ひきざん（10まで）</b>／ながさくらべ・かさくらべ</td></tr>
+      <tr><th>9〜10月</th><td><b>20までのかず</b>／3つのかずの計算／どちらがおおい</td></tr>
+      <tr><th>10〜12月</th><td><b>くり上がりのあるたしざん</b>／<b>くり下がりのあるひきざん</b>／かたち（形）</td></tr>
+      <tr><th>1〜3月</th><td><b>大きいかず（100〜120まで・なんじゅう）</b>／<b>とけい（何時・何時半）</b>／文しょうだい</td></tr>
+      </table>
+    </div>
+
+    <div class="subj">
+      <span class="subj-h" style="background:linear-gradient(135deg,#10b981,#06b6d4)">せいかつ</span>
+      <table><tr><th>時期</th><th>学ぶこと</th></tr>
+      <tr><th>通年</th><td>学校たんけん、きせつの あそび、あさがおの かんさつ（春に種まき→夏に観察）、いきものと ふれあう、家の手つだい など。理科・社会の土台になる体験活動。</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 小4 -->
+  <section class="sheet" id="s1">
+    <div class="sh-head"><span class="sh-title">小学4年生</span><span class="sh-note">標準的な進度（4月〜翌3月）／教科書により前後します</span></div>
+    <p class="lead">4年生からは<b>国語・算数・理科・社会</b>に加え、都道府県の漢字や割り算の筆算など内容がぐっと本格化します。<span class="tag">対応ドリルあり</span>の単元は本教材に問題を収録しています。</p>
+
+    <div class="subj">
+      <span class="subj-h" style="background:linear-gradient(135deg,#6366f1,#3b82f6)">算数</span>
+      <table><tr><th>時期</th><th>学ぶこと</th></tr>
+      <tr><th>4〜5月</th><td><b>大きい数（億・兆）</b>／<b>折れ線グラフと表</b></td></tr>
+      <tr><th>6〜7月</th><td><b>わり算の筆算（÷1桁・÷2桁）</b>／<b>角の大きさ（分度器）</b></td></tr>
+      <tr><th>9〜10月</th><td><b>垂直・平行と四角形</b>／<b>小数のしくみ・たし算ひき算</b></td></tr>
+      <tr><th>11〜12月</th><td><b>面積（長方形・正方形・複合図形）</b>／がい数</td></tr>
+      <tr><th>1〜3月</th><td><b>分数（帯分数・仮分数）</b>／<b>小数×整数・小数÷整数</b>／<b>直方体と立方体</b>／変わり方</td></tr>
+      </table>
+    </div>
+
+    <div class="subj">
+      <span class="subj-h" style="background:linear-gradient(135deg,#e11d48,#fb7185)">国語</span>
+      <table><tr><th>時期</th><th>学ぶこと</th></tr>
+      <tr><th>通年</th><td><b>漢字202字（都道府県の漢字を含む）</b>を配当。<b>熟語・対義語・部首・送りがな・ローマ字</b>の復習。</td></tr>
+      <tr><th>読み書き</th><td>説明文の要点、物語の気持ちの変化、段落のつながり。<b>調べて報告する文章</b>、意見文、詩・短歌に親しむ。</td></tr>
+      </table>
+    </div>
+
+    <div class="subj">
+      <span class="subj-h" style="background:linear-gradient(135deg,#10b981,#06b6d4)">理科</span>
+      <table><tr><th>時期</th><th>学ぶこと</th></tr>
+      <tr><th>4〜6月</th><td><b>季節と生き物（春）</b>／<b>人の体のつくり（骨・関節・筋肉）</b>／<b>天気と気温（百葉箱）</b></td></tr>
+      <tr><th>6〜9月</th><td><b>電流のはたらき（かん電池の直列・並列）</b>／<b>月と星（夏の大三角・星座）</b></td></tr>
+      <tr><th>10〜12月</th><td><b>とじこめた空気と水</b>／<b>もののあたたまり方（金属・水・空気／対流）</b></td></tr>
+      <tr><th>1〜3月</th><td><b>水のすがた（水・氷・水じょう気の三態、ふっとう・じょう発）</b>／生き物の1年間のまとめ</td></tr>
+      </table>
+    </div>
+
+    <div class="subj">
+      <span class="subj-h" style="background:linear-gradient(135deg,#f59e0b,#f97316)">社会</span>
+      <table><tr><th>時期</th><th>学ぶこと</th></tr>
+      <tr><th>4〜6月</th><td><b>わたしたちの県</b>（都道府県・日本地図・8方位・地図記号・県の地形と産業）</td></tr>
+      <tr><th>6〜9月</th><td><b>住みよいくらし</b>（水はどこから：ダム・浄水場／ごみの処理：分別・リサイクル・3R）</td></tr>
+      <tr><th>10〜12月</th><td><b>自然災害からくらしを守る</b>（地震・津波・洪水・ハザードマップ・防災）</td></tr>
+      <tr><th>1〜3月</th><td><b>郷土の伝統・先人の働き</b>／<b>特色ある地域のくらし</b></td></tr>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script>
+function show(i){
+  document.querySelectorAll('.sheet').forEach((s,k)=>s.classList.toggle('active',k===i));
+}
+</script>
+</body>
+</html>

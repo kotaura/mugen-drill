@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1年生 さんすうドリル</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<style>:root{--accent:#6366f1;--accent-grad:linear-gradient(135deg,#6366f1,#3b82f6);--accent-shadow:rgba(99,102,241,.35);--accent-soft:#eef2ff;}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+    font-family: 'M PLUS Rounded 1c', 'Zen Maru Gothic', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f8faff 0%, #eef2ff 50%, #f0f9ff 100%);
+    color: #1e293b;
+    display: flex; flex-direction: column; align-items: center;
+    padding-bottom: 48px;
+    -webkit-tap-highlight-color: transparent;
+    margin: 0;
+}
+rt { font-size: 0.5em; color: #94a3b8; font-weight: normal; }
+
+.app-header { width:100%; max-width:960px; padding:24px 24px 0; display:flex; align-items:center; gap:12px; }
+.app-logo { width:44px; height:44px; border-radius:12px; background:var(--accent-grad); display:flex; align-items:center; justify-content:center; color:white; font-size:1.3rem; font-weight:900; flex-shrink:0; box-shadow:0 4px 12px var(--accent-shadow); }
+.app-title { font-size:1.15rem; font-weight:800; color:#1e293b; }
+.app-sub   { font-size:0.75rem; color:#94a3b8; font-weight:500; }
+.app-home  { margin-left:auto; text-decoration:none; font-size:.78rem; font-weight:700; color:var(--accent); background:white; padding:8px 14px; border-radius:10px; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+.app-home:hover { background:#f1f5f9; }
+
+.tab-wrap { width:100%; max-width:960px; padding:20px 24px 0; }
+.tab-scroll { display:flex; gap:6px; overflow-x:auto; padding-bottom:2px; scrollbar-width:none; }
+.tab-scroll::-webkit-scrollbar { display:none; }
+.tab-btn { padding:8px 14px; border-radius:10px; border:none; cursor:pointer; font-weight:700; font-size:.8rem; white-space:nowrap; font-family:'Zen Maru Gothic',sans-serif; background:white; color:#94a3b8; box-shadow:0 1px 4px rgba(0,0,0,.08); transition:all .18s; }
+.tab-btn:hover { background:#f1f5f9; color:#475569; }
+.tab-btn.active { background:var(--accent-grad); color:white; box-shadow:0 4px 12px var(--accent-shadow); }
+
+.controls { width:100%; max-width:960px; padding:14px 24px; display:flex; gap:8px; flex-wrap:wrap; }
+.btn { display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:10px; border:none; cursor:pointer; font-weight:700; font-size:.82rem; font-family:'Zen Maru Gothic',sans-serif; transition:all .18s; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+.btn:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,0,0,.15); }
+.btn-primary { background:var(--accent-grad); color:white; }
+.btn-danger  { background:linear-gradient(135deg,#f43f5e,#fb923c); color:white; }
+.btn-success { background:linear-gradient(135deg,#10b981,#06b6d4); color:white; }
+.btn-slate   { background:#334155; color:white; }
+.btn-amber   { background:linear-gradient(135deg,#f59e0b,#f97316); color:white; }
+
+.sheet-wrap { width:100%; display:flex; justify-content:center; padding:0 12px; }
+.sheet { background:white; width:210mm; min-height:297mm; padding:12mm 15mm 10mm; border-radius:16px; box-shadow:0 0 0 1px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08),0 32px 64px rgba(0,0,0,.06); display:none; flex-direction:column; }
+.sheet.active { display:flex; }
+@media (max-width:640px) { .sheet { width:100%; min-height:auto; padding:12px; border-radius:12px; } }
+
+.sheet-header { display:flex; justify-content:space-between; align-items:flex-end; padding-bottom:9px; border-bottom:2px solid #e2e8f0; margin-bottom:9px; flex-shrink:0; }
+.sheet-grade { font-size:.68rem; font-weight:700; color:#94a3b8; margin-bottom:2px; }
+.sheet-title { font-size:1.35rem; font-weight:900; color:#0f172a; }
+.sheet-meta  { display:flex; align-items:flex-end; gap:7px; flex-shrink:0; }
+.meta-field  { display:flex; align-items:flex-end; gap:3px; }
+.meta-label  { font-size:.7rem; font-weight:700; color:#64748b; padding-bottom:2px; }
+.meta-input  { border:none; border-bottom:1.5px solid #cbd5e1; background:transparent; font-size:.9rem; font-weight:700; color:#0f172a; outline:none; padding:0 2px; text-align:center; font-family:'M PLUS Rounded 1c',sans-serif; }
+.meta-input.w-sm   { width:32px; }
+.meta-input.w-name { width:110px; text-align:left; }
+.meta-input:focus { border-bottom-color:var(--accent); }
+
+.score-bar   { display:flex; justify-content:space-between; align-items:center; margin-bottom:7px; }
+.score-pill  { display:inline-flex; align-items:center; gap:4px; background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:8px; padding:3px 10px; }
+.score-label { font-size:.68rem; font-weight:700; color:#94a3b8; }
+.score-val   { font-size:1.15rem; font-weight:900; color:var(--accent); font-family:monospace; min-width:2.4rem; text-align:right; }
+.score-denom { font-size:.78rem; font-weight:700; color:#cbd5e1; }
+.hint-text   { font-size:.66rem; color:#94a3b8; font-weight:600; }
+
+/* generic problem row */
+.grid-2col { display:grid; grid-template-columns:1fr 1fr; gap:0 24px; flex-grow:1; }
+.grid-3col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0 18px; flex-grow:1; }
+.prob-col  { display:flex; flex-direction:column; }
+.prob-h    { display:flex; align-items:center; gap:6px; padding:6px 0; border-bottom:1px solid #f1f5f9; font-size:1rem; flex-wrap:wrap; }
+.prob-num  { font-size:.72rem; font-weight:700; color:#cbd5e1; width:1.7rem; flex-shrink:0; }
+
+/* clock */
+.clock-layout { display:grid; grid-template-columns:1fr 1fr; gap:12px 18px; flex-grow:1; align-content:start; }
+.clock-item { display:flex; align-items:center; gap:12px; background:#fafbff; border:1.5px solid #e0e7ff; border-radius:14px; padding:10px 14px; }
+.clock-fig { flex-shrink:0; }
+.clock-ans { display:flex; align-items:center; gap:4px; font-size:.92rem; flex-wrap:wrap; }
+
+/* quiz */
+.grid-quiz { display:flex; flex-direction:column; flex-grow:1; gap:7px; }
+.quiz-item { display:flex; align-items:flex-start; gap:10px; background:#fafbff; border:1.5px solid #e8ecf8; border-radius:12px; padding:9px 12px; }
+.quiz-badge { background:var(--accent-grad); color:white; border-radius:50%; width:21px; height:21px; display:flex; align-items:center; justify-content:center; font-size:.7rem; font-weight:800; flex-shrink:0; margin-top:1px; }
+.quiz-body  { flex-grow:1; min-width:0; }
+.quiz-q     { font-size:.92rem; line-height:1.7; }
+.quiz-choices { display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:4px; font-size:.84rem; color:#475569; }
+.quiz-choice { display:inline-flex; gap:4px; }
+.quiz-ans   { display:flex; align-items:center; gap:6px; margin-top:5px; font-size:.88rem; flex-wrap:wrap; }
+.quiz-tag   { font-size:.6rem; border-radius:6px; padding:1px 7px; font-weight:800; background:var(--accent-soft); color:var(--accent); }
+.grid-quiz.two { display:grid; grid-template-columns:1fr 1fr; gap:7px 14px; }
+
+/* write practice */
+.write-layout { display:flex; flex-direction:column; gap:6px; flex-grow:1; }
+.write-row { display:flex; align-items:center; gap:8px; border-bottom:1px dashed #e2e8f0; padding:5px 0; }
+.write-head { display:flex; flex-direction:column; align-items:center; width:62px; flex-shrink:0; }
+.write-char { font-size:1.8rem; font-weight:800; color:#0f172a; line-height:1; font-family:'Zen Maru Gothic',sans-serif; }
+.write-yomi { font-size:.58rem; color:#94a3b8; font-weight:700; margin-top:2px; text-align:center; }
+.write-cells { display:flex; gap:5px; flex-grow:1; }
+.wcell { width:34px; height:34px; border:1.5px dashed #cbd5e1; border-radius:6px; position:relative; flex-shrink:0; background:#fff; }
+.wcell::before, .wcell::after { content:''; position:absolute; background:#eef2ff; }
+.wcell::before { left:50%; top:2px; bottom:2px; width:1px; transform:translateX(-.5px); }
+.wcell::after  { top:50%; left:2px; right:2px; height:1px; transform:translateY(-.5px); }
+.wcell .ghost { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:1.5rem; color:#eef2ff; font-family:'Zen Maru Gothic',sans-serif; font-weight:700; }
+.write-ex { font-size:.68rem; color:#64748b; font-weight:600; margin-left:auto; padding-left:8px; flex-shrink:0; max-width:150px; text-align:right; }
+.write-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:6px 16px; flex-grow:1; align-content:start; }
+
+/* input */
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance:none; }
+input[type=number] { -moz-appearance:textfield; }
+.box { font-family:'M PLUS Rounded 1c',sans-serif; font-weight:700; border:2px solid #e2e8f0; border-radius:8px; outline:none; background:#f8fafc; text-align:center; transition:all .15s; color:#0f172a; }
+.box:focus { border-color:var(--accent); background:var(--accent-soft); transform:scale(1.04); z-index:5; }
+.box.correct   { border-color:#cbd5e1; background:#f8fafc; }
+.box.incorrect { border-color:#f43f5e; background:#fff1f2; color:#e11d48; }
+.bxs  { width:2.9rem; height:1.95rem; font-size:.95rem; }
+.bxm  { width:3.6rem; height:2rem;   font-size:1rem; }
+.bxl  { width:4.8rem; height:2.1rem; font-size:1.05rem; }
+.bxword { width:6.5rem; height:2rem; font-size:1rem; }
+
+.inp-wrap { position:relative; display:inline-block; }
+.mark { position:absolute; top:50%; left:55%; transform:translate(-50%,-50%) scale(0); width:28px; height:28px; border:3px solid #f43f5e; border-radius:50%; pointer-events:none; opacity:0; transition:transform .28s cubic-bezier(.175,.885,.32,1.275),opacity .28s; z-index:20; }
+.mark.show { opacity:.75; transform:translate(-50%,-50%) scale(1); }
+
+
+
+/* Answer print labels: use flexible text instead of fixed-width input boxes. */
+.answer-text {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:2.9rem;
+    min-height:1.95rem;
+    max-width:100%;
+    padding:2px 8px;
+    border:2px solid #fca5a5;
+    border-radius:8px;
+    background:#fff;
+    color:#e11d48;
+    font-weight:900;
+    line-height:1.25;
+    text-align:center;
+    white-space:normal;
+    word-break:keep-all;
+    overflow-wrap:anywhere;
+    box-shadow:none;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+}
+.answer-text.long { justify-content:flex-start; text-align:left; font-size:.86rem; }
+.answer-text.xlong { justify-content:flex-start; text-align:left; font-size:.78rem; }
+.frac .answer-text { min-width:2.4rem; min-height:1.6rem; padding:0 5px; font-size:.82rem; }
+.print-sheet.a-mode .quiz-ans,
+.print-sheet.a-mode .story-ans,
+.print-sheet.a-mode .prob-h,
+.print-sheet.a-mode .prob-mixed { overflow:visible; }
+
+/* toast/modal */
+.toast { position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-16px); background:#f59e0b; color:white; padding:8px 20px; border-radius:9999px; font-weight:700; font-size:.85rem; box-shadow:0 8px 24px rgba(0,0,0,.12); z-index:200; opacity:0; transition:all .25s; pointer-events:none; }
+.toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
+#modal-overlay { position:fixed; inset:0; background:rgba(15,23,42,.6); display:flex; justify-content:center; align-items:center; z-index:300; opacity:0; pointer-events:none; transition:opacity .25s; backdrop-filter:blur(4px); }
+#modal-overlay.on { opacity:1; pointer-events:auto; }
+.modal-card { background:white; border-radius:24px; padding:36px 28px; text-align:center; width:400px; max-width:92%; transform:scale(.92); transition:transform .25s; box-shadow:0 24px 64px rgba(0,0,0,.2); }
+#modal-overlay.on .modal-card { transform:scale(1); }
+#confetti-canvas { position:fixed; inset:0; pointer-events:none; z-index:100; }
+#print-area { display:none; }
+
+/* PRINT */
+@media print {
+    @page { size:A4; margin:0; }
+    body { background:none !important; display:block !important; padding:0 !important; }
+    .app-header,.tab-wrap,.controls,.toast,#modal-overlay,#confetti-canvas,.sheet-wrap { display:none !important; }
+    #print-area { display:block !important; }
+    .print-sheet { display:flex !important; flex-direction:column !important; width:210mm !important; height:297mm !important; padding:12mm 15mm 10mm !important; box-sizing:border-box !important; background:white !important; page-break-after:always; border-radius:0 !important; box-shadow:none !important; overflow:hidden; }
+    .print-sheet:last-child { page-break-after:auto; }
+    .print-sheet .grid-2col  { display:grid !important; grid-template-columns:1fr 1fr; gap:0 24px; }
+    .print-sheet .grid-3col  { display:grid !important; grid-template-columns:1fr 1fr 1fr; gap:0 18px; }
+    .print-sheet .prob-col   { display:flex !important; flex-direction:column; }
+    .print-sheet .grid-quiz  { display:flex !important; flex-direction:column; gap:7px; }
+    .print-sheet .grid-quiz.two { display:grid !important; grid-template-columns:1fr 1fr; gap:7px 14px; }
+    .print-sheet .clock-layout { display:grid !important; grid-template-columns:1fr 1fr; gap:12px 18px; }
+    .print-sheet .write-grid { display:grid !important; grid-template-columns:repeat(2,1fr); gap:6px 16px; }
+    .print-sheet .sheet-header { border-bottom:2px solid #e2e8f0 !important; }
+    .print-sheet.q-mode input.box { border:2px solid #94a3b8 !important; color:transparent !important; background:white !important; box-shadow:none !important; }
+    .print-sheet.q-mode .mark { display:none !important; }
+    .print-sheet.a-mode input.box { border:2px solid #f43f5e !important; color:#f43f5e !important; background:white !important; box-shadow:none !important; font-weight:800 !important; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    .print-sheet.a-mode .mark { display:none !important; }
+    .print-sheet .quiz-badge, .print-sheet .quiz-tag, .print-sheet .app-logo { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    .print-sheet .wcell::before, .print-sheet .wcell::after, .print-sheet .wcell .ghost { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    .ans-badge { display:inline-block !important; background:#fff1f2 !important; color:#f43f5e !important; border:1.5px solid #fca5a5 !important; padding:1px 10px; border-radius:9999px; font-size:.66rem; font-weight:800; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+}
+.ans-badge { display:none; }
+</style>
+</head>
+<body>
+<div class="app-header">
+  <div class="app-logo">算</div>
+  <div><div class="app-title">1年生 さんすうドリル</div><div class="app-sub">小学1年生 算数</div></div>
+  <a href="index.html" class="app-home">↩ ホーム</a>
+</div>
+<div class="tab-wrap"><div class="tab-scroll" id="tab-container"></div></div>
+<div class="controls">
+  <button onclick="app.generate()"       class="btn btn-primary">🔄 新しい問題</button>
+  <button onclick="app.checkAnswers()"    class="btn btn-danger">💮 答え合わせ</button>
+  <button onclick="app.saveImage()"       class="btn btn-success">💾 画像で保存</button>
+  <button onclick="app.printQuestion()"   class="btn btn-slate">🖨️ 問題を印刷</button>
+  <button onclick="app.printAnswer()"     class="btn btn-amber">📋 解答を印刷</button>
+</div>
+<div class="sheet-wrap"><div id="sheets-container" style="width:100%;max-width:210mm;"></div></div>
+<div id="print-area"></div>
+<div class="toast" id="toast">⚠️</div>
+<div id="modal-overlay"><div class="modal-card">
+  <p style="font-size:.88rem;color:#94a3b8;font-weight:700;margin-bottom:4px;">けっか</p>
+  <div id="modal-score" style="font-size:3.8rem;font-weight:900;color:var(--accent);font-family:monospace;line-height:1.1;margin-bottom:8px;"></div>
+  <div id="modal-msg" style="font-size:1.05rem;font-weight:700;color:#334155;margin-bottom:24px;line-height:1.7;"></div>
+  <button onclick="app.closeModal()" class="btn btn-primary" style="margin:0 auto;">とじる</button>
+</div></div>
+<canvas id="confetti-canvas"></canvas>
+<script>
+/* ============================================================
+   WorksheetApp — shared engine for all subjects/grades
+   Tab types: arith | clock | quiz | write
+   Config is provided globally as WS_CONFIG.
+   ============================================================ */
+class WorksheetApp {
+    constructor(cfg){
+        this.cfg = cfg;
+        this.tabs = cfg.tabs;
+        this.tab = this.tabs[0].id;
+        this.data = {};           // generated/active problems per tab
+        this.audioCtx = null;
+        this.init();
+    }
+    init(){
+        this.buildNav(); this.buildSheets(); this.setupConfetti();
+        this.generate();
+        window.addEventListener('resize',()=>this.resizeCanvas());
+    }
+
+    /* ---------- helpers ---------- */
+    rnd(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
+    shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+    esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    tabById(id){ return this.tabs.find(t=>t.id===id); }
+
+    /* ---------- nav & scaffold ---------- */
+    buildNav(){
+        const c=document.getElementById('tab-container');
+        this.tabs.forEach(t=>{
+            const b=document.createElement('button');
+            b.id=`tb-${t.id}`; b.className='tab-btn'+(t.id===this.tab?' active':'');
+            b.textContent=t.label; b.onclick=()=>this.switchTab(t.id);
+            c.appendChild(b);
+        });
+    }
+    buildSheets(){
+        const c=document.getElementById('sheets-container');
+        this.tabs.forEach(t=>{
+            const d=document.createElement('div');
+            d.id=`sheet-${t.id}`; d.className='sheet'+(t.id===this.tab?' active':'');
+            d.innerHTML=this.mkHeader(t)+this.mkBody(t);
+            c.appendChild(d);
+        });
+    }
+    mkHeader(t){
+        const scoreBar = t.type==='write'
+          ? `<div class="score-bar"><span class="hint-text">なぞって かいて れんしゅうしよう ✏️</span></div>`
+          : `<div class="score-bar">
+               <span class="hint-text"><span class="ans-badge">★ 解答</span> □に答えを入れてね</span>
+               <div class="score-pill"><span class="score-label">点数</span><span class="score-val" id="sc-${t.id}"></span><span class="score-denom">/100</span></div>
+             </div>`;
+        return `<div class="sheet-header">
+            <div><div class="sheet-grade">${this.esc(this.cfg.subtitle)}</div><div class="sheet-title">${this.esc(t.title)}</div></div>
+            <div class="sheet-meta">
+                <div class="meta-field"><input type="text" class="meta-input w-sm" maxlength="2"><span class="meta-label">年</span></div>
+                <div class="meta-field"><input type="text" class="meta-input w-sm" maxlength="2"><span class="meta-label">組</span></div>
+                <div class="meta-field"><input type="text" class="meta-input w-sm" maxlength="2"><span class="meta-label">番</span></div>
+                <div class="meta-field" style="margin-left:6px"><span class="meta-label">名前</span><input type="text" class="meta-input w-name"></div>
+            </div>
+        </div>${scoreBar}`;
+    }
+    mkBody(t){
+        if(t.type==='arith') return `<div id="wr-${t.id}" class="grid-3col"><div class="prob-col" id="c0-${t.id}"></div><div class="prob-col" id="c1-${t.id}"></div><div class="prob-col" id="c2-${t.id}"></div></div>`;
+        if(t.type==='clock') return `<div id="wr-${t.id}" class="clock-layout"></div>`;
+        if(t.type==='quiz')  return `<div id="wr-${t.id}" class="grid-quiz${t.twoCol?' two':''}"></div>`;
+        if(t.type==='write') return `<div id="wr-${t.id}" class="${t.grid?'write-grid':'write-layout'}"></div>`;
+        return '';
+    }
+    switchTab(id){
+        this.tab=id;
+        document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+        document.getElementById(`tb-${id}`).classList.add('active');
+        document.querySelectorAll('.sheet').forEach(s=>s.classList.remove('active'));
+        document.getElementById(`sheet-${id}`).classList.add('active');
+    }
+
+    /* ---------- generate / render ---------- */
+    generate(){
+        this.tabs.forEach(t=>{
+            if(t.type==='arith') this.data[t.id]=this.genArith(t);
+            else if(t.type==='clock') this.data[t.id]=this.genClock(t);
+            else if(t.type==='quiz'){
+                const pool=this.shuffle(t.items.slice());
+                const limit=t.pick||t.count||pool.length;
+                this.data[t.id]=pool.slice(0,limit);
+            }
+            else this.data[t.id]=t.items;
+            this.render(t);
+            const el=document.getElementById(`sc-${t.id}`); if(el) el.textContent='';
+        });
+        this.closeModal();
+    }
+    render(t){
+        if(t.type==='arith') this.renderArith(t);
+        else if(t.type==='clock') this.renderClock(t);
+        else if(t.type==='quiz') this.renderQuiz(t);
+        else if(t.type==='write') this.renderWrite(t);
+    }
+
+    /* ---------- ARITH ---------- */
+    genArith(t){
+        const list=[], modes=t.modes, n=t.count||18;
+        for(let i=0;i<n;i++){ list.push(this.genArithOne(modes[i%modes.length])); }
+        return list;
+    }
+    genArithOne(m){
+        const R=this.rnd.bind(this);
+        if(m==='add10'){ let a=R(1,9),b=R(1,10-a); return {d:`${a} ＋ ${b}`, a:a+b}; }
+        if(m==='sub10'){ let a=R(2,10),b=R(1,a-1); return {d:`${a} － ${b}`, a:a-b}; }
+        if(m==='iku2'){ let s=R(5,10),x=R(1,s-1); return {d:`${s} は ${x} と □`, a:s-x, iku:true}; }
+        if(m==='addcarry'){ let a=R(4,9),b=R(11-a,9); return {d:`${a} ＋ ${b}`, a:a+b}; }
+        if(m==='subborrow'){ // teen minus 1-digit that forces a borrow (ones digit of minuend < subtrahend)
+            let x=R(11,18), ones=x%10, y=R(ones+1,9); return {d:`${x} － ${y}`, a:x-y}; }
+        if(m==='big'){ const sub=R(0,2);
+            if(sub===0){ let a=R(2,9)*10,b=R(2,9)*10; while(a+b>100)b=R(1,9)*10; return {d:`${a} ＋ ${b}`,a:a+b}; }
+            if(sub===1){ let a=R(3,9)*10,b=R(1,a/10-1)*10; return {d:`${a} － ${b}`,a:a-b}; }
+            let t=R(2,9)*10,o=R(1,9); return {d:`${t} ＋ ${o}`,a:t+o}; }
+        if(m==='three'){ const sub=R(0,2);
+            if(sub===0){ let a=R(1,6),b=R(1,5),c=R(1,4); return {d:`${a} ＋ ${b} ＋ ${c}`,a:a+b+c}; }
+            if(sub===1){ let a=R(6,10),b=R(1,a-2),c=R(1,a-b-1); return {d:`${a} － ${b} － ${c}`,a:a-b-c}; }
+            let a=R(3,9),b=R(1,a-1),c=R(1,6); return {d:`${a} － ${b} ＋ ${c}`,a:a-b+c}; }
+        if(m==='compare20'){ let a=R(1,20),b=R(1,20); while(b===a)b=R(1,20); return {d:`${a} と ${b} では、大きい かずは`,a:Math.max(a,b),raw:true}; }
+        if(m==='small20'){ let a=R(1,20),b=R(1,20); while(b===a)b=R(1,20); return {d:`${a} と ${b} では、小さい かずは`,a:Math.min(a,b),raw:true}; }
+        if(m==='missingAdd10'){ let a=R(1,9),b=R(1,10-a); return {d:`${a} ＋ □ ＝ ${a+b}`,a:b,raw:true}; }
+        if(m==='missingSub10'){ let a=R(4,10),b=R(1,a-1); return {d:`${a} － □ ＝ ${a-b}`,a:b,raw:true}; }
+        if(m==='money'){ let tens=R(1,9),ones=R(0,9); return {d:`10円が ${tens}こ、1円が ${ones}こ。ぜんぶで`,a:tens*10+ones,raw:true}; }
+        if(m==='length'){ let a=R(2,15),b=R(1,12); return {d:`${a}cm と ${b}cm を あわせると`,a:a+b,raw:true}; }
+        if(m==='clockAfter'){ let h=R(1,12),add=R(1,3); let ans=((h+add-1)%12)+1; return {d:`${h}時の ${add}時間あと は`,a:ans,raw:true}; }
+        return {d:'1 ＋ 1', a:2};
+    }
+    renderArith(t){
+        const cols=['c0','c1','c2'].map(p=>document.getElementById(`${p}-${t.id}`));
+        cols.forEach(c=>c.innerHTML='');
+        this.data[t.id].forEach((p,i)=>{
+            const box=`<div class="inp-wrap"><input type="text" inputmode="numeric" class="box bxm" data-ans="${p.a}" data-kind="num"><div class="mark"></div></div>`;
+            const q = p.raw ? `${p.d}` : (p.iku ? `${p.d.replace('□',' ')}` : `${p.d} ＝`);
+            cols[i%3].insertAdjacentHTML('beforeend',
+              `<div class="prob-h"><span class="prob-num">(${i+1})</span><span style="flex-grow:1;font-size:1rem">${q}</span>${box}</div>`);
+        });
+        this.wire(t.id);
+    }
+
+    /* ---------- CLOCK ---------- */
+    genClock(t){
+        const list=[], n=t.count||8;
+        for(let i=0;i<n;i++){
+            const half = t.half!==false;         // include :30
+            const anyMin = t.anyMin===true;       // include arbitrary 5-min
+            let h=this.rnd(1,12), m=0;
+            if(anyMin) m=this.rnd(0,11)*5;
+            else if(half) m=[0,30][this.rnd(0,1)];
+            list.push({h,m});
+        }
+        return list;
+    }
+    clockSVG(h,m){
+        const S=88,c=S/2,r=38;
+        const ma=(m/60)*2*Math.PI - Math.PI/2;
+        const ha=((h%12)/12 + m/720)*2*Math.PI - Math.PI/2;
+        const hx=c+Math.cos(ha)*20, hy=c+Math.sin(ha)*20;
+        const mx=c+Math.cos(ma)*30, my=c+Math.sin(ma)*30;
+        let ticks='';
+        for(let i=0;i<12;i++){ const a=(i/12)*2*Math.PI-Math.PI/2;
+            const x1=c+Math.cos(a)*(r-3), y1=c+Math.sin(a)*(r-3), x2=c+Math.cos(a)*r, y2=c+Math.sin(a)*r;
+            ticks+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#94a3b8" stroke-width="${i%3===0?2:1}"/>`; }
+        let nums='';
+        [12,3,6,9].forEach((num,k)=>{ const a=(k/4)*2*Math.PI-Math.PI/2; const x=c+Math.cos(a)*(r-9), y=c+Math.sin(a)*(r-9)+4;
+            nums+=`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" font-size="9" font-weight="800" fill="#475569" font-family="M PLUS Rounded 1c,sans-serif">${num}</text>`; });
+        return `<svg width="${S}" height="${S}" viewBox="0 0 ${S} ${S}" xmlns="http://www.w3.org/2000/svg" style="display:block">
+            <circle cx="${c}" cy="${c}" r="${r}" fill="#ffffff" stroke="var(--accent)" stroke-width="2.5"/>
+            ${ticks}${nums}
+            <line x1="${c}" y1="${c}" x2="${hx.toFixed(1)}" y2="${hy.toFixed(1)}" stroke="#0f172a" stroke-width="3.4" stroke-linecap="round"/>
+            <line x1="${c}" y1="${c}" x2="${mx.toFixed(1)}" y2="${my.toFixed(1)}" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="${c}" cy="${c}" r="2.6" fill="#0f172a"/>
+        </svg>`;
+    }
+    renderClock(t){
+        const w=document.getElementById(`wr-${t.id}`); w.innerHTML='';
+        this.data[t.id].forEach((p,i)=>{
+            w.insertAdjacentHTML('beforeend',`
+              <div class="clock-item">
+                <div class="clock-fig">${this.clockSVG(p.h,p.m)}</div>
+                <div class="clock-ans">
+                  <span class="prob-num">(${i+1})</span>
+                  <div class="inp-wrap"><input type="text" inputmode="numeric" class="box bxs" data-ans="${p.h}" data-kind="num"><div class="mark"></div></div><span>時</span>
+                  <div class="inp-wrap"><input type="text" inputmode="numeric" class="box bxs" data-ans="${p.m}" data-kind="num"><div class="mark"></div></div><span>分</span>
+                </div>
+              </div>`);
+        });
+        this.wire(t.id);
+    }
+
+    /* ---------- QUIZ ---------- */
+    renderQuiz(t){
+        const w=document.getElementById(`wr-${t.id}`); w.innerHTML='';
+        this.data[t.id].forEach((p,i)=>{
+            const kind=p.kind||'fill';
+            let boxCls='bxword', ansData=p.a, dkind='alt';
+            let choicesHTML='';
+            if(kind==='ox'){ boxCls='bxs'; dkind='ox'; }
+            if(kind==='choice'){
+                boxCls='bxs'; dkind='str';
+                const letters=['ア','イ','ウ','エ','オ'];
+                choicesHTML=`<div class="quiz-choices">`+p.choices.map((c,k)=>`<span class="quiz-choice"><b>${letters[k]}.</b> ${this.esc(c)}</span>`).join('')+`</div>`;
+            }
+            const tag = p.tag?`<span class="quiz-tag">${this.esc(p.tag)}</span>`:'';
+            const unit = p.unit?`<span style="font-size:.85rem">${this.esc(p.unit)}</span>`:'';
+            const hint = kind==='ox'?'（○か×）':(kind==='choice'?'（記号）':'');
+            const box=`<div class="inp-wrap"><input type="text" class="box ${boxCls}" data-ans="${this.esc(String(ansData))}" data-kind="${dkind}"><div class="mark"></div></div>`;
+            w.insertAdjacentHTML('beforeend',`
+              <div class="quiz-item">
+                <div class="quiz-badge">${i+1}</div>
+                <div class="quiz-body">
+                  <div class="quiz-q">${p.q}</div>
+                  ${choicesHTML}
+                  <div class="quiz-ans">${tag}<span style="font-size:.82rem;color:#475569">こたえ${hint}：</span>${box}${unit}</div>
+                </div>
+              </div>`);
+        });
+        this.wire(t.id);
+    }
+
+    /* ---------- WRITE (practice) ---------- */
+    renderWrite(t){
+        const w=document.getElementById(`wr-${t.id}`); w.innerHTML='';
+        const cells = t.cells || 6;
+        this.data[t.id].forEach(p=>{
+            let cellHTML='';
+            for(let k=0;k<cells;k++){ cellHTML+=`<div class="wcell">${k===0?`<span class="ghost">${this.esc(p.c)}</span>`:''}</div>`; }
+            const ex = p.ex?`<div class="write-ex">${p.ex}</div>`:'';
+            w.insertAdjacentHTML('beforeend',`
+              <div class="write-row">
+                <div class="write-head"><span class="write-char">${this.esc(p.c)}</span>${p.y?`<span class="write-yomi">${this.esc(p.y)}</span>`:''}</div>
+                <div class="write-cells">${cellHTML}</div>
+                ${ex}
+              </div>`);
+        });
+    }
+
+    /* ---------- wire & check ---------- */
+    wire(tabId){
+        const inputs=document.querySelectorAll(`#sheet-${tabId} input.box`);
+        inputs.forEach((inp,i)=>{
+            inp.addEventListener('input',e=>{
+                if(inp.dataset.kind==='num'){
+                    let v=e.target.value.replace(/[０-９]/g,s=>String.fromCharCode(s.charCodeAt(0)-0xFEE0)).replace(/[^0-9]/g,'');
+                    if(e.target.value!==v)e.target.value=v;
+                }
+                inp.classList.remove('correct','incorrect');
+                const mk=inp.parentElement.querySelector('.mark'); if(mk)mk.classList.remove('show');
+            });
+            inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ if(inputs[i+1])inputs[i+1].focus(); else inp.blur(); } });
+        });
+    }
+    norm(s){ return String(s).trim().replace(/\s+/g,'').replace(/[，、]/g,',').replace(/[０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)); }
+    checkAnswers(){
+        const tabId=this.tab, t=this.tabById(tabId);
+        if(t.type==='write'){ this.toast('このシートは かきとりの れんしゅうです'); return; }
+        const inputs=document.querySelectorAll(`#sheet-${tabId} input.box`);
+        let correct=0,total=0,allDone=true;
+        inputs.forEach(inp=>{
+            total++;
+            const raw=inp.dataset.ans||''; const val=inp.value; 
+            if(!val.trim()){ allDone=false; return; }
+            inp.classList.remove('correct','incorrect');
+            const mk=inp.parentElement.querySelector('.mark'); if(mk)mk.classList.remove('show');
+            let ok=false; const kind=inp.dataset.kind;
+            if(kind==='num'){ ok=parseFloat(this.norm(val))===parseFloat(this.norm(raw)); }
+            else if(kind==='ox'){ const v=val.trim().replace('◯','○').replace(/[xX✕✖＊*]/,'×'); ok=(v===raw); }
+            else if(kind==='alt'){ const alts=raw.split('|').map(x=>this.norm(x)); ok=alts.includes(this.norm(val)); }
+            else { ok=this.norm(val)===this.norm(raw); }
+            if(ok){ inp.classList.add('correct'); if(mk)mk.classList.add('show'); correct++; }
+            else inp.classList.add('incorrect');
+        });
+        if(total===0) return;
+        const score=Math.round(correct/total*100);
+        const el=document.getElementById(`sc-${tabId}`); if(el)el.textContent=score;
+        this.showModal(score,allDone);
+    }
+    showModal(score,allDone){
+        document.getElementById('modal-score').textContent=score+'点';
+        const m=document.getElementById('modal-msg');
+        if(!allDone) m.innerHTML='まだ かいていない<br>もんだいが あるよ！';
+        else if(score===100){ m.innerHTML='パーフェクト！✨<br>すごい！'; this.startConfetti(); this.playFanfare(); }
+        else if(score>=80) m.innerHTML='おしい！<br>あとちょっと！';
+        else m.innerHTML='あきらめずに<br>がんばろう！';
+        document.getElementById('modal-overlay').classList.add('on');
+    }
+    closeModal(){ document.getElementById('modal-overlay').classList.remove('on'); this.stopConfetti(); }
+    toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('on'); clearTimeout(this._tt); this._tt=setTimeout(()=>t.classList.remove('on'),1800); }
+
+    /* ---------- print / save ---------- */
+    _buildPrint(mode){
+        const area=document.getElementById('print-area'); area.innerHTML='';
+        this.tabs.forEach(t=>{
+            const src=document.getElementById(`sheet-${t.id}`);
+            const clone=src.cloneNode(true);
+            clone.className=`print-sheet ${mode==='answer'?'a-mode':'q-mode'}`;
+            clone.id=''; clone.removeAttribute('style');
+            if(mode==='answer') clone.querySelectorAll('input.box').forEach(inp=>{
+                const raw = String(inp.dataset.ans || '');
+                const answer = raw.replace(/\|/g, ' / ');
+                const label = document.createElement('span');
+                label.className = 'answer-text' + (answer.length > 9 ? ' xlong' : (answer.length > 4 ? ' long' : ''));
+                label.textContent = answer;
+                const wrap = inp.closest('.inp-wrap');
+                if(wrap) wrap.replaceWith(label);
+                else inp.replaceWith(label);
+            });
+            area.appendChild(clone);
+        });
+    }
+    printQuestion(){ this._buildPrint('question'); window.print(); }
+    printAnswer(){ this._buildPrint('answer'); window.print(); }
+    saveImage(){
+        const id=this.tab;
+        html2canvas(document.getElementById(`sheet-${id}`),{scale:2,useCORS:true,backgroundColor:'#ffffff'}).then(canvas=>{
+            const a=document.createElement('a'); a.download=`${this.cfg.slug||'sheet'}_${id}.png`; a.href=canvas.toDataURL('image/png'); a.click();
+        });
+    }
+
+    /* ---------- audio / confetti ---------- */
+    getAudio(){ if(!this.audioCtx)this.audioCtx=new(window.AudioContext||window.webkitAudioContext)(); if(this.audioCtx.state==='suspended')this.audioCtx.resume(); return this.audioCtx; }
+    playTone(f,d,type='sine',s=0){ const ctx=this.getAudio(),o=ctx.createOscillator(),g=ctx.createGain(); o.type=type;o.frequency.setValueAtTime(f,ctx.currentTime+s);g.gain.setValueAtTime(0.12,ctx.currentTime+s);g.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+s+d);o.connect(g);g.connect(ctx.destination);o.start(ctx.currentTime+s);o.stop(ctx.currentTime+s+d); }
+    playFanfare(){ [523,659,784,1047].forEach((f,i)=>this.playTone(f,.2,'square',i*.2)); }
+    setupConfetti(){ this.cc=document.getElementById('confetti-canvas'); if(!this.cc)return; this.cx=this.cc.getContext('2d'); this.cp=[]; this.ca=false; this.resizeCanvas(); }
+    resizeCanvas(){ if(this.cc){ this.cc.width=window.innerWidth; this.cc.height=window.innerHeight; } }
+    startConfetti(){ if(!this.cc)return; this.ca=true; this.cp=Array.from({length:140},()=>({x:Math.random()*window.innerWidth,y:-20,r:Math.random()*5+3,d:Math.random()*8+4,color:`hsl(${Math.random()*360},75%,62%)`,tilt:0,ta:0,ts:Math.random()*.08+.04})); this._animConf(); }
+    _animConf(){ if(!this.ca)return; this.cx.clearRect(0,0,this.cc.width,this.cc.height); this.cp.forEach(p=>{p.ta+=p.ts;p.y+=p.d*.45;p.tilt=Math.sin(p.ta)*12;this.cx.beginPath();this.cx.lineWidth=p.r;this.cx.strokeStyle=p.color;this.cx.moveTo(p.x+p.tilt+p.r/4,p.y);this.cx.lineTo(p.x+p.tilt,p.y+p.tilt+p.r/4);this.cx.stroke();}); this.cp=this.cp.filter(p=>p.y<this.cc.height+20); if(this.cp.length>0)requestAnimationFrame(()=>this._animConf()); else{this.cx.clearRect(0,0,this.cc.width,this.cc.height);this.ca=false;} }
+    stopConfetti(){ this.ca=false; if(this.cx)this.cx.clearRect(0,0,this.cc.width,this.cc.height); }
+}
+
+const WS_CONFIG = {"title": "1年生 さんすうドリル","tabs": [{"id": 1,"label": "たしざん","title": "10までの たしざん","type": "arith","modes": ["add10"],"count": 18},{"id": 2,"label": "ひきざん","title": "10までの ひきざん","type": "arith","modes": ["sub10"],"count": 18},{"id": 3,"label": "いくつといくつ","title": "いくつと いくつ","type": "arith","modes": ["iku2"],"count": 18},{"id": 4,"label": "くり上がり","title": "くり上がりの たしざん","type": "arith","modes": ["addcarry"],"count": 18},{"id": 5,"label": "くり下がり","title": "くり下がりの ひきざん","type": "arith","modes": ["subborrow"],"count": 18},{"id": 6,"label": "大きいかず","title": "大きい かず・何十の けいさん","type": "arith","modes": ["big"],"count": 18},{"id": 7,"label": "3つのかず","title": "3つの かずの けいさん","type": "arith","modes": ["three"],"count": 15},{"id": 8,"label": "とけい","title": "とけいを よもう（なんじ・なんじはん）","type": "clock","count": 8,"half": true,"anyMin": false},{"id": 9,"label": "かずくらべ","title": "20までの かずの 大きさくらべ","type": "arith","modes": ["compare20","small20"],"count": 18},{"id": 10,"label": "□のけいさん","title": "□に あてはまる かず","type": "arith","modes": ["missingAdd10","missingSub10"],"count": 18},{"id": 11,"label": "お金","title": "10円と1円の けいさん","type": "arith","modes": ["money"],"count": 15},{"id": 12,"label": "ながさ","title": "ながさの たしざん","type": "arith","modes": ["length"],"count": 15},{"id": 13,"label": "時こく","title": "なん時間あと","type": "arith","modes": ["clockAfter"],"count": 15}],"subtitle": "小学1年生 算数","slug": "grade1-math"};
+const app = new WorksheetApp(WS_CONFIG);
+</script>
+</body>
+</html>

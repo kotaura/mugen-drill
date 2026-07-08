@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>おうち学習ドリル｜小学1年生・4年生</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800;900&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;}
+body{font-family:'M PLUS Rounded 1c','Zen Maru Gothic',sans-serif;margin:0;min-height:100vh;
+  background:linear-gradient(135deg,#f8faff 0%,#eef2ff 50%,#f0f9ff 100%);color:#1e293b;
+  display:flex;flex-direction:column;align-items:center;padding:0 20px 60px;}
+.hero{width:100%;max-width:860px;text-align:center;padding:48px 0 8px;}
+.hero .logo{width:64px;height:64px;border-radius:18px;margin:0 auto 16px;
+  background:linear-gradient(135deg,#6366f1,#3b82f6);display:flex;align-items:center;justify-content:center;
+  font-size:2rem;box-shadow:0 8px 24px rgba(99,102,241,.4);}
+.hero h1{font-size:1.7rem;font-weight:900;margin:0 0 6px;}
+.hero p{font-size:.9rem;color:#64748b;margin:0;line-height:1.6;}
+.guide-link{display:inline-flex;align-items:center;gap:8px;margin-top:18px;text-decoration:none;
+  background:#fff;color:#6366f1;font-weight:800;font-size:.85rem;padding:11px 20px;border-radius:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);transition:transform .15s;}
+.guide-link:hover{transform:translateY(-2px);}
+.grade{width:100%;max-width:860px;margin-top:40px;}
+.grade-h{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.grade-badge{font-weight:900;font-size:1.05rem;color:#fff;padding:7px 18px;border-radius:12px;}
+.grade-note{font-size:.78rem;color:#94a3b8;}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;}
+.card{text-decoration:none;color:inherit;background:#fff;border-radius:18px;padding:20px;
+  box-shadow:0 1px 4px rgba(0,0,0,.06),0 8px 20px rgba(0,0,0,.05);
+  transition:transform .16s,box-shadow .16s;position:relative;overflow:hidden;display:block;}
+.card:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(0,0,0,.13);}
+.card .ic{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;color:#fff;margin-bottom:12px;}
+.card h3{margin:0 0 4px;font-size:1.05rem;font-weight:800;}
+.card .sub{font-size:.74rem;color:#94a3b8;line-height:1.5;}
+.card .bar{position:absolute;top:0;left:0;height:4px;width:100%;}
+footer{margin-top:48px;font-size:.72rem;color:#b0b8c4;text-align:center;line-height:1.7;max-width:600px;}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="logo">📚</div>
+  <h1>おうち学習ドリル</h1>
+  <p>小学1年生・4年生の全教科。ブラウザで問題を解いて、そのまま印刷（A4）もできます。</p>
+  <a class="guide-link" href="curriculum.html">📅 学習カリキュラム早見表（いつ何を学ぶか）</a>
+</div>
+
+<!-- 小4 -->
+<section class="grade">
+  <div class="grade-h">
+    <span class="grade-badge" style="background:linear-gradient(135deg,#6366f1,#3b82f6)">小学4年生</span>
+    <span class="grade-note">算数・国語・理科・社会</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="grade4-math.html">
+      <div class="bar" style="background:linear-gradient(135deg,#6366f1,#3b82f6)"></div>
+      <div class="ic" style="background:linear-gradient(135deg,#6366f1,#3b82f6)">➗</div>
+      <h3>算数</h3><div class="sub">大きい数・わり算・角度・面積・分数・小数・単位・表とグラフ</div>
+    </a>
+    <a class="card" href="grade4-japanese.html">
+      <div class="bar" style="background:linear-gradient(135deg,#e11d48,#fb7185)"></div>
+      <div class="ic" style="background:linear-gradient(135deg,#e11d48,#fb7185)">✍️</div>
+      <h3>国語</h3><div class="sub">漢字の読み・書き取り・熟語・対義語・部首・送りがな・ローマ字</div>
+    </a>
+    <a class="card" href="grade4-science.html">
+      <div class="bar" style="background:linear-gradient(135deg,#10b981,#06b6d4)"></div>
+      <div class="ic" style="background:linear-gradient(135deg,#10b981,#06b6d4)">🔬</div>
+      <h3>理科</h3><div class="sub">体のつくり・天気と気温・電流・月と星・水のすがた・実験観察</div>
+    </a>
+    <a class="card" href="grade4-social-studies.html">
+      <div class="bar" style="background:linear-gradient(135deg,#f59e0b,#f97316)"></div>
+      <div class="ic" style="background:linear-gradient(135deg,#f59e0b,#f97316)">🗾</div>
+      <h3>社会</h3><div class="sub">都道府県・地図記号・水とごみ・防災・地域の特色</div>
+    </a>
+  </div>
+</section>
+
+<!-- 小1 -->
+<section class="grade">
+  <div class="grade-h">
+    <span class="grade-badge" style="background:linear-gradient(135deg,#f59e0b,#f97316)">小学1年生</span>
+    <span class="grade-note">こくご・さんすう（生活科は早見表で確認）</span>
+  </div>
+  <div class="cards">
+    <a class="card" href="grade1-math.html">
+      <div class="bar" style="background:linear-gradient(135deg,#6366f1,#3b82f6)"></div>
+      <div class="ic" style="background:linear-gradient(135deg,#6366f1,#3b82f6)">🔢</div>
+      <h3>さんすう</h3><div class="sub">たしざん・ひきざん・くり上がり／下がり・数くらべ・お金・長さ・とけい</div>
+    </a>
+    <a class="card" href="grade1-japanese.html">
+      <div class="bar" style="background:linear-gradient(135deg,#e11d48,#fb7185)"></div>
+      <div class="ic" style="background:linear-gradient(135deg,#e11d48,#fb7185)">🖍️</div>
+      <h3>こくご</h3><div class="sub">ひらがな・カタカナ・かん字80字・ことば・文づくり</div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  各シートは右上の「印刷」からA4で印刷できます。問題は開くたびに自動生成されるので、繰り返し練習に使えます。<br>
+  ※収録内容は学習指導要領に沿った代表的な単元・語句を精選したものです（網羅ではありません）。教科書会社により学ぶ順序・時期は前後します。
+</footer>
+</body>
+</html>
